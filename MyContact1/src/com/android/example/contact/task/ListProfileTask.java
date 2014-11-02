@@ -1,34 +1,27 @@
 package com.android.example.contact.task;
 
-import com.android.example.contact.upload.*;
+import com.android.example.contact.adapter.*;
 
 import java.util.LinkedList;
 import java.util.List;
 
 import android.app.Activity;
-import android.app.FragmentTransaction;
-import android.content.Context;
 import android.database.Cursor;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.provider.ContactsContract;
 import android.util.Log;
-import android.widget.TextView;
-
-import com.android.example.contact.ProfileFragment;
+import android.widget.ListView;
 import com.android.example.contact.R;
 import com.android.example.contact.data.Pair;
 
 public class ListProfileTask extends AsyncTask<Void, Void, List<Pair>> {
 	static final String TAG = "ListProfileTask : ";
-
-	private FragmentTransaction ft;
+	
+	public static String pairString;
 	private Activity activity;
 
-	public ListProfileTask(Activity act, FragmentTransaction ft) {
+	public ListProfileTask(Activity act) {
 		this.activity = act;
-		this.ft = ft;
 	}
 
 	protected List<Pair> doInBackground(Void... params) {
@@ -37,19 +30,18 @@ public class ListProfileTask extends AsyncTask<Void, Void, List<Pair>> {
 	}
 
 	protected void onPostExecute(List<Pair> result) {
-		ProfileFragment profileFragment = (ProfileFragment) activity
-				.getFragmentManager().findFragmentByTag("Profile");
-		if (profileFragment == null)
-			profileFragment = new ProfileFragment();
-
-		profileFragment.setDataList(result);
-		ft.replace(R.id.fragment_container, profileFragment, "Profile");
-		ft.commit();
-
-		// profileFragment.taskRun = true;
+		Log.d(TAG, "onPostExecute started");
+		
+		ContactsAdapter adapter = new ContactsAdapter(activity, result);
+		ListView listContacts = (ListView) activity.findViewById(R.id.listContacts);
+		listContacts.setAdapter(adapter);
+		
+		Log.i(TAG, "onPostExecute finished");
 	}
 
-	private List<Pair> fillPairList() {
+	public List<Pair> fillPairList() {
+		Log.d(TAG, "retrieve contacts started");
+		
 		String nameNumber = "";
 
 		Cursor c = activity.getContentResolver().query(
@@ -100,7 +92,7 @@ public class ListProfileTask extends AsyncTask<Void, Void, List<Pair>> {
 									profileList.add(pair);
 									firstNumber = false;
 								}
-								nameNumber += pair.key + "#" + (th++) + "="
+								nameNumber += pair.key + "_" + (th++) + "="
 										+ pair.value + "&";
 							}
 						}
@@ -111,12 +103,10 @@ public class ListProfileTask extends AsyncTask<Void, Void, List<Pair>> {
 			}
 		}
 		c.close();
-
-		if (nameNumber != "") {
-			new UploadContacts(activity).execute(nameNumber.substring(0,
-					nameNumber.length() - 1));
-			Log.i(TAG, nameNumber);
-		}
+		
+		pairString = nameNumber.substring(0,nameNumber.length() - 1);
+		Log.i(TAG, pairString);
+		Log.i(TAG, "retrieve contacts finished");
 		return profileList;
 	}
 }

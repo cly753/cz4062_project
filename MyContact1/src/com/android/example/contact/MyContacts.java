@@ -1,72 +1,84 @@
 package com.android.example.contact;
 
+import org.apache.http.util.EncodingUtils;
+
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
+import android.app.ActionBar.TabListener;
 import android.app.Activity;
-import android.app.FragmentTransaction;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
+import android.view.View;
+import android.webkit.WebView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
 
 import com.android.example.contact.task.ListProfileTask;
 
 public class MyContacts extends Activity {
 	static final String TAG = "MainActivity : ";
-	ActionBar actionBar;
-	TabListener tabListener;
+	
+	// TabListener tabListener;
 	Tab profileTab;
-	
-	public TextView textViewForDebug;
-	
-	public static final String TAB_TEXT = "~~ Contacts ~~";
 
-	/** Called when the activity is first created. */
+	ListView listContacts;
+	EditText etIp;
+	EditText etPort;
+	Button btnSend;
+
+	public static final String TITLE = "~~ Contacts ~~";
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		actionBar = getActionBar();
-		actionBar.setDisplayShowTitleEnabled(false);
-		tabListener = new TabListener(this);
 
-		profileTab = actionBar.newTab().setText(TAB_TEXT)
-				.setTabListener(tabListener);
-		actionBar.addTab(profileTab);
-		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM
-				| ActionBar.DISPLAY_USE_LOGO);
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-		Log.i(TAG, "" + Thread.currentThread().getId());
-		
+		this.getActionBar().setTitle(TITLE);
+
+		Log.i(TAG, "onCreate finished");
 	}
 
-	class TabListener implements ActionBar.TabListener {
-		String lastTab = null;
-		private Activity activity;
+	@Override
+	protected void onResume() {
+		Log.d(TAG, "onResume started.");
+		
+		super.onResume();
+		ListProfileTask task = new ListProfileTask(this);
+		task.execute();
+		
+		Log.i(TAG, "onResume finished.");
+	}
 
-		public TabListener(Activity activity) {
-			this.activity = activity;
-		}
+	public void sendContacts(View view) {
+		Log.d(TAG, "sendContacts started");
 
-		@Override
-		public void onTabSelected(Tab tab, FragmentTransaction ft) { // select by default ?
-			Log.i(TAG, "" + Thread.currentThread().getId());
-			CharSequence tabText = tab.getText();
-			Log.i(TAG, tabText.toString());
-			if (tabText.equals(TAB_TEXT)) {
-				ListProfileTask task = new ListProfileTask(activity, ft);
-				task.execute();
-				Log.i(TAG, "task executing");
-			}
-		}
+		String ip = ((EditText) this.findViewById(R.id.etIp)).getText()
+				.toString();
+		String port = ((EditText) this.findViewById(R.id.etPort)).getText()
+				.toString();
 
-		@Override
-		public void onTabReselected(Tab tab, FragmentTransaction ft) {
-			// TODO Auto-generated method stub
-		}
+		Log.i(TAG, "ip = " + ip);
+		Log.i(TAG, "port = " + port);
 
-		@Override
-		public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-			// TODO Auto-generated method stub
-		}
+		this.sendByBrowser(ip, port, ListProfileTask.pairString);
+		
+		Log.d(TAG, "sendContacts finished");
+	}
+	
+	public void sendByBrowser(String ip, String port, String data) {
+		Log.d(TAG, "sendByBrowser started");
+		
+		String addr = "http://" + ip + ":" + port + "/";
+		addr = "http://10.0.3.2:8080/";
+
+		Intent intent = new Intent(this, BrowserActivity.class);
+		intent.putExtra("URL_ADDR", addr);
+		intent.putExtra("URL_DATA", data);
+	    startActivity(intent);
+		
+		Log.i(TAG, "sendByBrowser finished");
 	}
 }

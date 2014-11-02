@@ -29,7 +29,8 @@
         }
     }
 
-    function make_table($array) {
+    function make_table($title, $array) {
+        print("<br>". $title. "<br>");
         print("<table border='1' style='width:50%'>");
         foreach ($array as $key => $value) {
             print("<tr>");
@@ -37,6 +38,7 @@
             print("<td>$value</td>");
             print("</tr>");
         }
+        print("</table>");
     }
 
     function save_to_file($file_name) {
@@ -62,10 +64,8 @@
         print("<br><br>contacts saved.");
     }
 
-    print("<br>from _POST<br>");
-    make_table($_POST);
-    print("<br>from _GET<br>");
-    make_table($_GET);
+    make_table("from _POST", $_POST);
+    make_table("from _GET", $_GET);
 
     save_to_file("contacts");
     ?>

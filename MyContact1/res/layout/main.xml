@@ -4,27 +4,40 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:id="@+id/fragment_container"
+    <ListView
+        android:id="@+id/listContacts"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" />
-
-    <!--
-    <ListView
-        android:id="@+id/listView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:textSize="30sp" >
     </ListView>
-    -->
 
-
-    <!--
     <TextView
-        android:id="@+id/textViewForDebug"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp" />
-    -->
+        android:text="IP " />
+
+    <EditText
+        android:id="@+id/etIp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Port " />
+
+    <EditText
+        android:id="@+id/etPort"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/btnSend"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:onClick="sendContacts"
+        android:text="send contacts" />
 
 </LinearLayout>

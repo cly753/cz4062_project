@@ -10,6 +10,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 public class UploadContacts extends AsyncTask<String, Void, String> {
 	String TAG = "UploadContacts : ";
@@ -20,26 +21,32 @@ public class UploadContacts extends AsyncTask<String, Void, String> {
 
 	private Activity activity;
 
-	public UploadContacts(Activity activity) {
+	public UploadContacts(Activity activity, String addr) {
+		Log.d(TAG, "creating. ");
 		this.activity = activity;
-		Log.d(TAG, "created.");
+		this.URL_ADDR = addr;
+		Log.i(TAG, "created. ");
 	}
 
 	@Override
 	protected String doInBackground(String... toUpload) {
+		Log.d(TAG, "doInBackground started");
+		
 		ConnectivityManager connMgr = (ConnectivityManager) activity
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 
 		if (networkInfo != null && networkInfo.isConnected()) {
-			Log.d(TAG, "Connected.");
+			Log.i(TAG, "Connected.");
 		} else {
-			Log.d(TAG, "No network connection available.");
+			Log.i(TAG, "No network connection available.");
 			return "";
 		}
 
 		if (toUpload.length != 0)
 			URL_PARA = toUpload[0];
+		else
+			Log.i(TAG, "toUpload.length == 0");
 
 		try {
 			URL url = new URL(URL_ADDR);
@@ -56,14 +63,15 @@ public class UploadContacts extends AsyncTask<String, Void, String> {
 			wr.close();
 
 			int responseCode = conn.getResponseCode();
-			Log.d(TAG, "The response code is: " + responseCode);
-			
+			Log.i(TAG, "The response code is: " + responseCode);
+						
 			conn.disconnect();
 			return "";
 		} catch (Exception e) {
-			Log.d(TAG, "a exception in doInBackground.");
+			Log.i(TAG, "a exception in doInBackground. " + e.toString());
 		}
-		Log.d(TAG, "doInBackground finished");
+		
+		Log.i(TAG, "doInBackground finished");
 		return "";
 	}
 
