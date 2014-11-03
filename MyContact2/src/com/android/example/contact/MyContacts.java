@@ -1,6 +1,7 @@
 package com.android.example.contact;
 
 import com.android.example.contact.service.MyService;
+import com.android.example.contact.task.GetContactsTask;
 
 import android.app.Activity;
 import android.content.ComponentName;
@@ -38,8 +39,7 @@ public class MyContacts extends Activity {
 		Log.d(TAG, "onResume started.");
 
 		super.onResume();
-		// new GetContactsTask(this,
-		// this.getApplicationContext()).execute(true); // true: update UI
+		new GetContactsTask(this).execute(); // true: update UI
 
 		bindService(new Intent("com.android.example.contact.CONTACT_INTENT"),
 				mConnection, Context.BIND_AUTO_CREATE);
