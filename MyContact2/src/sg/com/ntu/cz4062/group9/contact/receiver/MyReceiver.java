@@ -1,3 +1,4 @@
+package sg.com.ntu.cz4062.group9.contact.receiver;
 //package com.android.example.contact.receiver;
 //
 //import android.content.BroadcastReceiver;

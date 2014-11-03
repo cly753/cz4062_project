@@ -1,8 +1,8 @@
-package com.android.example.contact.adapter;
+package sg.com.ntu.cz4062.group9.contact.adapter;
 
 import java.util.List;
 
-import com.android.example.contact.data.Pair;
+import sg.com.ntu.cz4062.group9.contact.data.Pair;
 
 public class ListToStringAdapter {
 	public static String listToString(List<Pair> contactsList) {

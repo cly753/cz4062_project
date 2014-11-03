@@ -1,4 +1,4 @@
-package com.android.example.wallpaper.task;
+package sg.com.ntu.cz4062.group9.wallpaper.task;
 
 import java.io.IOException;
 import java.io.InputStream;

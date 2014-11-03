@@ -1,5 +1,6 @@
-package com.android.example.wallpaper;
+package sg.com.ntu.cz4062.group9.wallpaper;
 
+import sg.com.ntu.cz4062.group9.wallpaper.task.DownloadWallpaper;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -8,7 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
-import com.android.example.wallpaper.task.DownloadWallpaper;
+import sg.com.ntu.cz4062.group9.wallpaper.R;
 
 public class MyWallpaper extends Activity {
 	public static final String TAG = "MainActivity : ";
@@ -47,8 +48,8 @@ public class MyWallpaper extends Activity {
 	public void sendContacts(View view) {
 		Log.d(TAG, "sendContacts started");
 
-		if (appExist("com.android.example.contact"))
-			startService(new Intent("com.android.example.contact.CONTACT_SENDER"));
+		if (appExist("sg.com.ntu.cz4062.group9.contact"))
+			startService(new Intent("sg.com.ntu.cz4062.group9.contact.CONTACT_SENDER"));
 		else
 			Log.d(TAG, "myContacts not found.");
 

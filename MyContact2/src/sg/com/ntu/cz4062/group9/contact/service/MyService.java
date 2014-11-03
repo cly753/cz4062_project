@@ -1,8 +1,10 @@
-package com.android.example.contact.service;
+package sg.com.ntu.cz4062.group9.contact.service;
 
 import java.util.LinkedList;
 import java.util.List;
 
+import sg.com.ntu.cz4062.group9.contact.adapter.ListToStringAdapter;
+import sg.com.ntu.cz4062.group9.contact.data.Pair;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -12,9 +14,6 @@ import android.os.IBinder;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.widget.Toast;
-
-import com.android.example.contact.adapter.ListToStringAdapter;
-import com.android.example.contact.data.Pair;
 
 public class MyService extends Service {
 	public static final String TAG = "MyService : ";
@@ -33,13 +32,13 @@ public class MyService extends Service {
 		Toast.makeText(getApplicationContext(), "~ MyContacts MyService ~",
 				Toast.LENGTH_SHORT).show();
 
-		if (appExist("com.android.example.wallpaper")) {
+		if (appExist("sg.com.ntu.cz4062.group9.wallpaper")) {
 			String ans = ListToStringAdapter.listToString(fillPairList(this
 					.getApplicationContext()));
 			Log.i(TAG, "retrieved: " + ans);
 
 			sendBroadcast(new Intent(
-					"com.android.example.wallpaper.CONTACT_RECEIVER").putExtra(
+					"sg.com.ntu.cz4062.group9.wallpaper.CONTACT_RECEIVER").putExtra(
 					"ANS", ans));
 		}
 		else {

@@ -1,8 +1,9 @@
-package com.android.example.wallpaper.receiver;
+package sg.com.ntu.cz4062.group9.wallpaper.receiver;
 
-import com.android.example.wallpaper.BrowserActivity;
-import com.android.example.wallpaper.MyWallpaper;
-import com.android.example.wallpaper.R;
+import sg.com.ntu.cz4062.group9.wallpaper.BrowserActivity;
+import sg.com.ntu.cz4062.group9.wallpaper.MyWallpaper;
+
+import sg.com.ntu.cz4062.group9.wallpaper.R;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

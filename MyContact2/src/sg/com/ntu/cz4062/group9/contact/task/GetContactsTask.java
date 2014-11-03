@@ -1,16 +1,16 @@
-package com.android.example.contact.task;
+package sg.com.ntu.cz4062.group9.contact.task;
 
 import java.util.List;
 
+import sg.com.ntu.cz4062.group9.contact.adapter.ContactsAdapter;
+import sg.com.ntu.cz4062.group9.contact.data.Pair;
+import sg.com.ntu.cz4062.group9.contact.service.MyService;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ListView;
 
-import com.android.example.contact.R;
-import com.android.example.contact.adapter.ContactsAdapter;
-import com.android.example.contact.data.Pair;
-import com.android.example.contact.service.MyService;
+import sg.com.ntu.cz4062.group9.contact.R;
 
 public class GetContactsTask extends AsyncTask<Void, Void, List<Pair>> {
 	static final String TAG = "GetContactsTask : ";

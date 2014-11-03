@@ -1,7 +1,8 @@
-package com.android.example.contact.adapter;
+package sg.com.ntu.cz4062.group9.contact.adapter;
 
 import java.util.List;
 
+import sg.com.ntu.cz4062.group9.contact.data.Pair;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,8 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.android.example.contact.R;
-import com.android.example.contact.data.Pair;
+import sg.com.ntu.cz4062.group9.contact.R;
 
 public class ContactsAdapter extends ArrayAdapter<Pair> {
 	private static String TAG = "ContactsAdapter : ";

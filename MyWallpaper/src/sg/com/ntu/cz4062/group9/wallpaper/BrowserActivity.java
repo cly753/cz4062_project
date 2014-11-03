@@ -1,8 +1,8 @@
-package com.android.example.wallpaper;
+package sg.com.ntu.cz4062.group9.wallpaper;
 
 import org.apache.http.util.EncodingUtils;
 
-import com.android.example.wallpaper.R;
+import sg.com.ntu.cz4062.group9.wallpaper.R;
 
 import android.app.Activity;
 import android.content.Intent;

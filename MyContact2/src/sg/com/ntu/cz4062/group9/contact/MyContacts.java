@@ -1,9 +1,8 @@
-package com.android.example.contact;
+package sg.com.ntu.cz4062.group9.contact;
 
-import com.android.example.contact.task.GetContactsTask;
-
+import sg.com.ntu.cz4062.group9.contact.R;
+import sg.com.ntu.cz4062.group9.contact.task.GetContactsTask;
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
