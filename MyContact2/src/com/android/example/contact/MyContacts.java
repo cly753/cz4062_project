@@ -9,8 +9,8 @@ import android.util.Log;
 
 public class MyContacts extends Activity {
 	static final String TAG = "MyContacts : ";
-	public static final String TITLE = "~~ Contacts ~~";
-
+	private static final String TITLE = "~~ Contacts ~~";
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		Log.d(TAG, "onCreate started.");
@@ -28,7 +28,7 @@ public class MyContacts extends Activity {
 
 		super.onResume();
 		new GetContactsTask(this).execute();
-
+		
 		Log.i(TAG, "onResume finished.");
 	}
 }

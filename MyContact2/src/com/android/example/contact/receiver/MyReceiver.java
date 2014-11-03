@@ -1,4 +1,4 @@
-//package com.android.example.contact;
+//package com.android.example.contact.receiver;
 //
 //import android.content.BroadcastReceiver;
 //import android.content.Context;

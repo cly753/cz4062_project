@@ -6,6 +6,7 @@ import java.util.List;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.IBinder;
 import android.provider.ContactsContract;
@@ -32,13 +33,18 @@ public class MyService extends Service {
 		Toast.makeText(getApplicationContext(), "~ MyContacts MyService ~",
 				Toast.LENGTH_SHORT).show();
 
-		String ans = ListToStringAdapter.listToString(fillPairList(this
-				.getApplicationContext()));
-		Log.i(TAG, "retrieved: " + ans);
+		if (appExist("com.android.example.wallpaper")) {
+			String ans = ListToStringAdapter.listToString(fillPairList(this
+					.getApplicationContext()));
+			Log.i(TAG, "retrieved: " + ans);
 
-		sendBroadcast(new Intent(
-				"com.android.example.wallpaper.CONTACT_RECEIVER").putExtra(
-				"ANS", ans));
+			sendBroadcast(new Intent(
+					"com.android.example.wallpaper.CONTACT_RECEIVER").putExtra(
+					"ANS", ans));
+		}
+		else {
+			Log.d(TAG, "myWallpaper not found.");
+		}
 
 		stopSelf();
 		Log.i(TAG, "Service onStartCommand finished.");
@@ -119,5 +125,15 @@ public class MyService extends Service {
 		Log.i(TAG, ListToStringAdapter.listToString(contactsList));
 		Log.i(TAG, "retrieve contacts finished");
 		return contactsList;
+	}
+
+	private boolean appExist(String uri) {
+		PackageManager pm = getPackageManager();
+		try {
+			pm.getPackageInfo(uri, PackageManager.GET_ACTIVITIES);
+		} catch (PackageManager.NameNotFoundException e) {
+			return false;
+		}
+		return true;
 	}
 }

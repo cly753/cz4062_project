@@ -35,7 +35,7 @@
         </service>
 
         <!-- 
-        <receiver android:name=".MyReceiver" >
+        <receiver android:name="com.android.example.contact.receiver.MyReceiver" >
             <intent-filter>
                 <action android:name="com.android.example.contact.CONTACT_RECEIVER" >
                 </action>
