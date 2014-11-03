@@ -6,7 +6,6 @@
 
     <uses-sdk android:minSdkVersion="15" />
 
-    <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
@@ -27,10 +26,14 @@
             android:label="@string/title_activity_browser" >
         </activity>
 
-        <provider
-            android:name="ContactsGetter"
-            android:authorities="com.android.example.contact.ContactsGetter" >
-        </provider>
+        <service android:name=".MyService" />
+
+        <receiver android:name="MyReceiver" >
+            <intent-filter>
+                <action android:name="com.android.example.contact.CONTACT_INTENT" >
+                </action>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.android.example.contact.data;
+package com.android.example.wallpaper.data;
 
 public class Pair {
 	public String key;

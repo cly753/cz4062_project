@@ -1,12 +1,12 @@
-package com.android.example.contact;
+package com.android.example.wallpaper;
 
 import org.apache.http.util.EncodingUtils;
+
+import com.android.example.wallpaper.R;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.webkit.WebView;
 
 public class BrowserActivity extends Activity {

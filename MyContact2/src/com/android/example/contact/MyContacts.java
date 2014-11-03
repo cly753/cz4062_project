@@ -22,11 +22,10 @@ public class MyContacts extends Activity {
 	@Override
 	protected void onResume() {
 		Log.d(TAG, "onResume started.");
-		
+
 		super.onResume();
-		GetContactsTask task = new GetContactsTask(this);
-		task.execute();
-		
+		new GetContactsTask(this, this.getApplicationContext()).execute(true); // true: update UI
+
 		Log.i(TAG, "onResume finished.");
 	}
 }

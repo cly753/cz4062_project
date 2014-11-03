@@ -1,4 +1,4 @@
-package com.android.example.contact.task;
+package com.android.example.wallpaper.task;
 
 import java.io.IOException;
 import java.io.InputStream;

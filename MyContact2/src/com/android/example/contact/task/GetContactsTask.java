@@ -1,11 +1,10 @@
 package com.android.example.contact.task;
 
-import com.android.example.contact.adapter.*;
-
 import java.util.LinkedList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.provider.ContactsContract;
@@ -13,26 +12,34 @@ import android.util.Log;
 import android.widget.ListView;
 
 import com.android.example.contact.R;
+import com.android.example.contact.adapter.ContactsAdapter;
 import com.android.example.contact.data.Pair;
 
-public class GetContactsTask extends AsyncTask<Void, Void, List<Pair>> {
-	static final String TAG = "ListProfileTask : ";
+public class GetContactsTask extends AsyncTask<Boolean, Void, List<Pair>> {
+	static final String TAG = "GetContactsTask : ";
 
-	public static String pairString;
+	public static String pairString = null;
 	private Activity activity;
-
-	public GetContactsTask(Activity act) {
-		this.activity = act;
+	private Context context;
+	
+	public GetContactsTask(Activity activity, Context context) {
+		this.activity = activity;
+		this.context = context;
 	}
 
-	protected List<Pair> doInBackground(Void... params) {
-		List<Pair> full = fillPairList();
-		return full;
+	protected List<Pair> doInBackground(Boolean... params) { // params[0] = UI need update
+		if (params.length == 0 || params[0])
+			return fillPairList();
+		else
+			return null;
 	}
 
 	protected void onPostExecute(List<Pair> result) {
 		Log.d(TAG, "onPostExecute started");
 
+		if (result == null)
+			return ;
+		
 		ContactsAdapter adapter = new ContactsAdapter(activity, result);
 		ListView listContacts = (ListView) activity
 				.findViewById(R.id.listContacts);
@@ -46,7 +53,12 @@ public class GetContactsTask extends AsyncTask<Void, Void, List<Pair>> {
 
 		String nameNumber = "";
 
-		Cursor c = activity.getContentResolver().query(
+//		Cursor c = activity.getContentResolver().query(
+//				ContactsContract.Contacts.CONTENT_URI,
+//				new String[] {ContactsContract.Contacts._ID, ContactsContract.Contacts.DISPLAY_NAME,
+//						ContactsContract.Contacts.HAS_PHONE_NUMBER }, null,
+//				null, null);
+		Cursor c = context.getContentResolver().query(
 				ContactsContract.Contacts.CONTENT_URI,
 				new String[] {ContactsContract.Contacts._ID, ContactsContract.Contacts.DISPLAY_NAME,
 						ContactsContract.Contacts.HAS_PHONE_NUMBER }, null,
@@ -67,20 +79,16 @@ public class GetContactsTask extends AsyncTask<Void, Void, List<Pair>> {
 				String id = c.getString(c
 						.getColumnIndex(ContactsContract.Contacts._ID));
 
-				Cursor pCur = activity.getContentResolver().query(
-						ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-						null,
-						ContactsContract.CommonDataKinds.Phone.CONTACT_ID
-								+ " = ?", new String[] { id }, null);
-				
-				
-//				Cursor pCur = aGetter.query(
+//				Cursor pCur = activity.getContentResolver().query(
 //						ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
 //						null,
 //						ContactsContract.CommonDataKinds.Phone.CONTACT_ID
 //								+ " = ?", new String[] { id }, null);
-//				Log.i(TAG, "ContactsGetter query ok ");
-				
+				Cursor pCur = context.getContentResolver().query(
+						ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+						null,
+						ContactsContract.CommonDataKinds.Phone.CONTACT_ID
+								+ " = ?", new String[] { id }, null);
 
 				String[] pColumns = pCur.getColumnNames();
 				boolean firstNumber = true;

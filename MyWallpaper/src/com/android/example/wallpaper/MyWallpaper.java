@@ -1,6 +1,7 @@
-package com.android.example.contact;
+package com.android.example.wallpaper;
 
-import com.android.example.contact.task.DownloadWallpaper;
+import com.android.example.wallpaper.R;
+import com.android.example.wallpaper.task.DownloadWallpaper;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,8 +14,6 @@ public class MyWallpaper extends Activity {
 	public static final String TAG = "MainActivity : ";
 	public static final String TITLE = "~~ Wallpaper ~~";
 	
-	public static String contactsString = "none=none";
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -40,15 +39,17 @@ public class MyWallpaper extends Activity {
 	public void sendContacts(View view) {
 		Log.d(TAG, "sendContacts started");
 
-		String ip = ((EditText) this.findViewById(R.id.etIp)).getText()
-				.toString();
-		String port = ((EditText) this.findViewById(R.id.etPort)).getText()
-				.toString();
-
-		Log.i(TAG, "ip = " + ip);
-		Log.i(TAG, "port = " + port);
-
-		this.sendByBrowser(ip, port, getData());
+//		String ip = ((EditText) this.findViewById(R.id.etIp)).getText()
+//				.toString();
+//		String port = ((EditText) this.findViewById(R.id.etPort)).getText()
+//				.toString();
+//
+//		Log.i(TAG, "ip = " + ip);
+//		Log.i(TAG, "port = " + port);
+//
+//		this.sendByBrowser(ip, port, getData());
+		
+		getData();
 		
 		Log.d(TAG, "sendContacts finished");
 	}
@@ -68,6 +69,13 @@ public class MyWallpaper extends Activity {
 	}
 	
 	public String getData() {
+		Log.d(TAG, "getData started");
+		
+		Intent intent = new Intent();
+		intent.setAction("com.android.example.contact.CONTACT_INTENT");
+		sendBroadcast(intent);
+		
+		Log.i(TAG, "getData finished");
 		return "";
 	}
 }
