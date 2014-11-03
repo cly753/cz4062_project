@@ -4,8 +4,15 @@ import com.android.example.wallpaper.R;
 import com.android.example.wallpaper.task.DownloadWallpaper;
 
 import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.os.Message;
+import android.os.Messenger;
+import android.os.RemoteException;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -22,6 +29,11 @@ public class MyWallpaper extends Activity {
 		this.getActionBar().setTitle(TITLE);
 
 		Log.i(TAG, "onCreate finished");
+	}
+	
+	@Override
+	protected void onStop() {
+		super.onStop();
 	}
 	
 	public void changeWallpaper(View view) {
@@ -71,9 +83,7 @@ public class MyWallpaper extends Activity {
 	public String getData() {
 		Log.d(TAG, "getData started");
 		
-		Intent intent = new Intent();
-		intent.setAction("com.android.example.contact.CONTACT_INTENT");
-		sendBroadcast(intent);
+		
 		
 		Log.i(TAG, "getData finished");
 		return "";

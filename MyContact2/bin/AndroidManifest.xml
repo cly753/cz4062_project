@@ -26,14 +26,22 @@
             android:label="@string/title_activity_browser" >
         </activity>
 
-        <service android:name=".MyService" />
+        <service
+            android:name="com.android.example.contact.service.MyService"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.android.example.contact.CONTACT_INTENT" />
+            </intent-filter>
+        </service>
 
+        <!--
         <receiver android:name="MyReceiver" >
             <intent-filter>
                 <action android:name="com.android.example.contact.CONTACT_INTENT" >
                 </action>
             </intent-filter>
-        </receiver>
+        </receiver>
+        -->
     </application>
 
 </manifest>
