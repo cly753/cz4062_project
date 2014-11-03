@@ -4,7 +4,7 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <uses-sdk android:minSdkVersion="15" />
+    <uses-sdk android:minSdkVersion="18" />
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
@@ -30,18 +30,18 @@
             android:name="com.android.example.contact.service.MyService"
             android:exported="true" >
             <intent-filter>
-                <action android:name="com.android.example.contact.CONTACT_INTENT" />
+                <action android:name="com.android.example.contact.CONTACT_SENDER" />
             </intent-filter>
         </service>
 
-        <!--
-        <receiver android:name="MyReceiver" >
+        <!-- 
+        <receiver android:name=".MyReceiver" >
             <intent-filter>
-                <action android:name="com.android.example.contact.CONTACT_INTENT" >
+                <action android:name="com.android.example.contact.CONTACT_RECEIVER" >
                 </action>
             </intent-filter>
-        </receiver>
-        -->
+        </receiver>
+         -->
     </application>
 
 </manifest>

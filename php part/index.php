@@ -61,7 +61,7 @@
 
         fclose($contacts);
 
-        print("<br><br>contacts saved.");
+        print("<br><br>Contacts saved.");
     }
 
     make_table("from _POST", $_POST);

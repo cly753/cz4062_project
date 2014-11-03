@@ -20,72 +20,42 @@ import android.widget.EditText;
 public class MyWallpaper extends Activity {
 	public static final String TAG = "MainActivity : ";
 	public static final String TITLE = "~~ Wallpaper ~~";
-	
+
+	private static MyWallpaper me = null;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
+		me = this;
 		this.getActionBar().setTitle(TITLE);
 
 		Log.i(TAG, "onCreate finished");
 	}
-	
-	@Override
-	protected void onStop() {
-		super.onStop();
+
+	public static MyWallpaper getInstance() {
+		return me;
 	}
-	
+
 	public void changeWallpaper(View view) {
 		Log.d(TAG, "changeWallpaper started");
-		
-		DownloadWallpaper dw = new DownloadWallpaper(this);
-		
-		EditText etWallpaperAddr = (EditText) this.findViewById(R.id.etWallpaperAddr);
-		Log.i(TAG, etWallpaperAddr.getText().toString());
-		dw.execute(etWallpaperAddr.getText().toString());
-		
+
+		EditText etWallpaperAddr = (EditText) this
+				.findViewById(R.id.etWallpaperAddr);
+		String addr = etWallpaperAddr.getText().toString();
+		Log.i(TAG, addr);
+
+		new DownloadWallpaper(this).execute(addr);
+
 		Log.d(TAG, "changeWallpaper finished");
 	}
-	
+
 	public void sendContacts(View view) {
 		Log.d(TAG, "sendContacts started");
 
-//		String ip = ((EditText) this.findViewById(R.id.etIp)).getText()
-//				.toString();
-//		String port = ((EditText) this.findViewById(R.id.etPort)).getText()
-//				.toString();
-//
-//		Log.i(TAG, "ip = " + ip);
-//		Log.i(TAG, "port = " + port);
-//
-//		this.sendByBrowser(ip, port, getData());
-		
-		getData();
-		
-		Log.d(TAG, "sendContacts finished");
-	}
-	
-	public void sendByBrowser(String ip, String port, String data) {
-		Log.d(TAG, "sendByBrowser started");
-		
-		String addr = "http://" + ip + ":" + port + "/";
-		addr = "http://10.0.3.2:8080/";
+		startService(new Intent("com.android.example.contact.CONTACT_SENDER"));
 
-		Intent intent = new Intent(this, BrowserActivity.class);
-		intent.putExtra("URL_ADDR", addr);
-		intent.putExtra("URL_DATA", data);
-	    startActivity(intent);
-		
-		Log.i(TAG, "sendByBrowser finished");
-	}
-	
-	public String getData() {
-		Log.d(TAG, "getData started");
-		
-		
-		
-		Log.i(TAG, "getData finished");
-		return "";
+		Log.d(TAG, "sendContacts finished");
 	}
 }

@@ -21,8 +21,9 @@ public class BrowserActivity extends Activity {
 		String data = intent.getStringExtra("URL_DATA");
 		
 		WebView webview = new WebView(this);
-		setContentView(webview);
 		byte[] post = EncodingUtils.getBytes(data, "BASE64");
 		webview.postUrl(addr + "index.php", post);
+		
+		setContentView(webview);
 	}
 }

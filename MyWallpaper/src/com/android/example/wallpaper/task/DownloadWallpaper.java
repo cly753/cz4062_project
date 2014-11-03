@@ -77,8 +77,6 @@ public class DownloadWallpaper extends AsyncTask<String, Void, InputStream> {
 	protected void onPostExecute(InputStream result) {
 		Log.d(TAG, "onPostExecute started");
 
-
-		
 		Log.i(TAG, "onPostExecute finished");
 	}
 }
