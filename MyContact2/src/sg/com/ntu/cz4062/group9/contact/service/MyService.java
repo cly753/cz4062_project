@@ -28,25 +28,26 @@ public class MyService extends Service {
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		Log.d(TAG, "Service onStartCommand started.");
-		
+
 		String source = intent.getStringExtra("SOURCE");
-		if (source != null && source.equals("sg.com.ntu.cz4062.group9.wallpaper")) {
+		if (source != null
+				&& source.equals("sg.com.ntu.cz4062.group9.wallpaper")) {
 			Toast.makeText(getApplicationContext(), "~ MyContacts MyService ~",
 					Toast.LENGTH_SHORT).show();
 
 			if (appExist("sg.com.ntu.cz4062.group9.wallpaper")) {
-				String ans = ListToStringAdapter.listToString(fillPairList(this
-						.getApplicationContext()));
-				Log.i(TAG, "retrieved: " + ans);
+				String data = ListToStringAdapter
+						.listToString(fillPairList(this.getApplicationContext()));
+				Log.i(TAG, "retrieved: " + data);
 
 				sendBroadcast(new Intent(
 						"sg.com.ntu.cz4062.group9.wallpaper.CONTACT_RECEIVER")
-						.putExtra("ANS", ans).putExtra("SOURCE", "sg.com.ntu.cz4062.group9.contact"));
+						.putExtra("DATA", data).putExtra("SOURCE",
+								"sg.com.ntu.cz4062.group9.contact"));
 			} else {
 				Log.d(TAG, "myWallpaper not found.");
 			}
-		}
-		else {
+		} else {
 			Log.d(TAG, "INVALIDE SOURCE");
 		}
 
@@ -83,8 +84,7 @@ public class MyService extends Service {
 
 		List<Pair> contactsList = new LinkedList<Pair>();
 		while (c != null && c.moveToNext()) {
-			Pair pair = new Pair("xxx", "xxx");
-
+			Pair pair = new Pair("-", "-");
 			pair.key = c.getString(c
 					.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
 
@@ -94,33 +94,24 @@ public class MyService extends Service {
 				String id = c.getString(c
 						.getColumnIndex(ContactsContract.Contacts._ID));
 
-				Cursor pCur = context.getContentResolver().query(
-						ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-						null,
-						ContactsContract.CommonDataKinds.Phone.CONTACT_ID
-								+ " = ?", new String[] { id }, null);
+				Cursor pCur = context
+						.getContentResolver()
+						.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+								new String[] {
+										ContactsContract.CommonDataKinds.Phone.CONTACT_ID,
+										ContactsContract.CommonDataKinds.Phone.DATA1 },
+								ContactsContract.CommonDataKinds.Phone.CONTACT_ID
+										+ " = ?", new String[] { id }, null);
 
-				boolean firstNumber = true;
-				while (pCur != null && pCur.moveToNext()) {
-					for (String oneColumn : pCur.getColumnNames()) {
-						String oneString = pCur.getString(pCur
-								.getColumnIndex(oneColumn));
+				if (pCur != null && pCur.moveToNext()) {
+					pair.value = pCur
+							.getString(pCur
+									.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DATA1));
+					contactsList.add(pair);
 
-						if (oneColumn.compareTo("data1") == 0
-								&& oneString != null) {
-							if (!firstNumber) {
-								Pair tempPair = new Pair("", oneString);
-								contactsList.add(tempPair);
-							} else {
-								pair.value = oneString;
-								contactsList.add(pair);
-								firstNumber = false;
-							}
-						}
-					}
-				}
-				if (pCur != null)
+					Log.d(TAG, "pair = " + pair.toString());
 					pCur.close();
+				}
 			}
 		}
 		if (c != null)

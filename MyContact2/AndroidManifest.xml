@@ -33,15 +33,6 @@
                 <action android:name="sg.com.ntu.cz4062.group9.contact.CONTACT_SENDER" />
             </intent-filter>
         </service>
-
-        <!-- 
-        <receiver android:name="sg.com.ntu.cz4062.group9.contact.receiver.MyReceiver" >
-            <intent-filter>
-                <action android:name="sg.com.ntu.cz4062.group9.contact.CONTACT_RECEIVER" >
-                </action>
-            </intent-filter>
-        </receiver>
-         -->
     </application>
 
 </manifest>

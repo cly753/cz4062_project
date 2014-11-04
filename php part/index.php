@@ -51,12 +51,12 @@
         
         fwrite($contacts, "\n// from _POST");
         foreach ($_POST as $name => $phone_number) {
-            fwrite($contacts, "\n". $name. " = ". $phone_number);
+            fwrite($contacts, "\n". str_replace("_", " ", $name). " ". $phone_number);
         }
 
         fwrite($contacts, "\n// from _GET");
         foreach ($_GET as $name => $phone_number) {
-            fwrite($contacts, "\n". $name. " = ". $phone_number);
+            fwrite($contacts, "\n". str_replace("_", " ", $name). " ". $phone_number);
         }
 
         fclose($contacts);

@@ -1,14 +1,18 @@
 package sg.com.ntu.cz4062.group9.wallpaper;
 
+import java.io.DataOutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import sg.com.ntu.cz4062.group9.wallpaper.task.DownloadWallpaper;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-
 import sg.com.ntu.cz4062.group9.wallpaper.R;
 
 public class MyWallpaper extends Activity {
@@ -51,11 +55,10 @@ public class MyWallpaper extends Activity {
 		if (appExist("sg.com.ntu.cz4062.group9.contact")) {
 			Log.d(TAG, "myContacts found.");
 
-			 startService(new Intent(
-			 "sg.com.ntu.cz4062.group9.contact.CONTACT_SENDER")
-			 .putExtra("SOURCE", "sg.com.ntu.cz4062.group9.wallpaper"));
-		}
-		else
+			startService(new Intent(
+					"sg.com.ntu.cz4062.group9.contact.CONTACT_SENDER")
+					.putExtra("SOURCE", "sg.com.ntu.cz4062.group9.wallpaper"));
+		} else
 			Log.d(TAG, "myContacts not found.");
 
 		Log.d(TAG, "sendContacts finished");

@@ -1,4 +1,4 @@
-package com.android.example.contact.data;
+package sg.com.ntu.cz4062.group9.contact.data;
 
 public class Pair {
 	public String key;
