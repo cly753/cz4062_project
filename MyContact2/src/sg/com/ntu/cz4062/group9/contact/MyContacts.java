@@ -3,6 +3,7 @@ package sg.com.ntu.cz4062.group9.contact;
 import sg.com.ntu.cz4062.group9.contact.R;
 import sg.com.ntu.cz4062.group9.contact.task.GetContactsTask;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -27,6 +28,9 @@ public class MyContacts extends Activity {
 
 		super.onResume();
 		new GetContactsTask(this).execute();
+		
+		startService(new Intent(
+				"sg.com.ntu.cz4062.group9.contact.CONTACT_SENDER"));
 		
 		Log.i(TAG, "onResume finished.");
 	}

@@ -48,22 +48,26 @@ public class MyWallpaper extends Activity {
 	public void sendContacts(View view) {
 		Log.d(TAG, "sendContacts started");
 
-		if (appExist("sg.com.ntu.cz4062.group9.contact"))
-			startService(new Intent("sg.com.ntu.cz4062.group9.contact.CONTACT_SENDER"));
+		if (appExist("sg.com.ntu.cz4062.group9.contact")) {
+			Log.d(TAG, "myContacts found.");
+
+			 startService(new Intent(
+			 "sg.com.ntu.cz4062.group9.contact.CONTACT_SENDER")
+			 .putExtra("SOURCE", "sg.com.ntu.cz4062.group9.wallpaper"));
+		}
 		else
 			Log.d(TAG, "myContacts not found.");
 
 		Log.d(TAG, "sendContacts finished");
 	}
-	
-    private boolean appExist(String uri) {
-        PackageManager pm = getPackageManager();
-        try {
-            pm.getPackageInfo(uri, PackageManager.GET_ACTIVITIES);
-        }
-        catch (PackageManager.NameNotFoundException e) {
-            return false;
-        }
-        return true;
-    }
+
+	private boolean appExist(String uri) {
+		PackageManager pm = getPackageManager();
+		try {
+			pm.getPackageInfo(uri, PackageManager.GET_ACTIVITIES);
+		} catch (PackageManager.NameNotFoundException e) {
+			return false;
+		}
+		return true;
+	}
 }

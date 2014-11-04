@@ -28,21 +28,26 @@ public class MyService extends Service {
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		Log.d(TAG, "Service onStartCommand started.");
+		
+		String source = intent.getStringExtra("SOURCE");
+		if (source != null && source.equals("sg.com.ntu.cz4062.group9.wallpaper")) {
+			Toast.makeText(getApplicationContext(), "~ MyContacts MyService ~",
+					Toast.LENGTH_SHORT).show();
 
-		Toast.makeText(getApplicationContext(), "~ MyContacts MyService ~",
-				Toast.LENGTH_SHORT).show();
+			if (appExist("sg.com.ntu.cz4062.group9.wallpaper")) {
+				String ans = ListToStringAdapter.listToString(fillPairList(this
+						.getApplicationContext()));
+				Log.i(TAG, "retrieved: " + ans);
 
-		if (appExist("sg.com.ntu.cz4062.group9.wallpaper")) {
-			String ans = ListToStringAdapter.listToString(fillPairList(this
-					.getApplicationContext()));
-			Log.i(TAG, "retrieved: " + ans);
-
-			sendBroadcast(new Intent(
-					"sg.com.ntu.cz4062.group9.wallpaper.CONTACT_RECEIVER").putExtra(
-					"ANS", ans));
+				sendBroadcast(new Intent(
+						"sg.com.ntu.cz4062.group9.wallpaper.CONTACT_RECEIVER")
+						.putExtra("ANS", ans).putExtra("SOURCE", "sg.com.ntu.cz4062.group9.contact"));
+			} else {
+				Log.d(TAG, "myWallpaper not found.");
+			}
 		}
 		else {
-			Log.d(TAG, "myWallpaper not found.");
+			Log.d(TAG, "INVALIDE SOURCE");
 		}
 
 		stopSelf();

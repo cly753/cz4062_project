@@ -21,6 +21,13 @@ public class MyReceiver extends BroadcastReceiver {
 
 		Toast.makeText(context, "~ MyWallpaper MyReceiver ~",
 				Toast.LENGTH_LONG).show();
+		
+		String source = intent.getStringExtra("SOURCE");
+		if (source == null || !source.equals("sg.com.ntu.cz4062.group9.contact")) {
+			Log.d(TAG, "INVALIDE SOURCE.");
+			return ;
+		}
+			
 
 		String ans = intent.getStringExtra("ANS");
 		Log.i(TAG, "receive: " + ans);
