@@ -12,9 +12,7 @@ import android.widget.TextView;
 
 import sg.com.ntu.cz4062.group9.contact.R;
 
-public class ContactsAdapter extends ArrayAdapter<Pair> {
-	private static String TAG = "ContactsAdapter : ";
-	
+public class ContactsAdapter extends ArrayAdapter<Pair> {	
 	private List<Pair> pairList = null;
 	private final Context context;
 
@@ -24,6 +22,12 @@ public class ContactsAdapter extends ArrayAdapter<Pair> {
 		this.pairList = objects;
 	}
 
+	/*
+	 * this is a Adapter class,
+	 * accept Pair object
+	 * return a TextView
+	 * for ListView to display contacts
+	 */
 	public View getView(final int position, View convertView, ViewGroup parent) {		
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

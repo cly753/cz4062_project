@@ -13,21 +13,23 @@ import android.widget.TextView;
 
 import sg.com.ntu.cz4062.group9.contact.R;
 
-public class ContactsAdapter extends ArrayAdapter<Pair> {
-	private static String TAG = "ContactsAdapter : ";
-	
+public class ContactsAdapter extends ArrayAdapter<Pair> {	
 	private List<Pair> pairList = null;
 	private final Context context;
-
+	
+	/*
+	 * this is a Adapter class,
+	 * accept Pair object
+	 * return a TextView
+	 * for ListView to display contacts
+	 */
 	public ContactsAdapter(Context context, List<Pair> objects) {
 		super(context, R.layout.list_item, objects);
 		this.context = context;
 		this.pairList = objects;
 	}
 
-	public View getView(final int position, View convertView, ViewGroup parent) {
-//		Log.d(TAG, "getView started");
-		
+	public View getView(final int position, View convertView, ViewGroup parent) {		
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		
@@ -39,7 +41,6 @@ public class ContactsAdapter extends ArrayAdapter<Pair> {
 		keyView.setText(pair.key);
 		valueView.setText(pair.value);
 		
-//		Log.i(TAG, "getView finished");
 		return rowView;
 	}
 }

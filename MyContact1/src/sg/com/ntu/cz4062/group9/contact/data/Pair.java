@@ -4,6 +4,11 @@ public class Pair {
 	public String key;
 	public String value;
 
+	/*
+	 * this is a class for storing each contacts data
+	 * key: contact name
+	 * value: contact number
+	*/
 	public Pair(String key, String value) {
 		this.key = key;
 		this.value = value;

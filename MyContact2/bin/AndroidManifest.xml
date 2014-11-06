@@ -21,10 +21,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="sg.com.ntu.cz4062.group9.contact.BrowserActivity"
-            android:label="@string/title_activity_browser" >
-        </activity>
 
         <service
             android:name="sg.com.ntu.cz4062.group9.contact.service.MyService"

