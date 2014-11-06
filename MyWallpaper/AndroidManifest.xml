@@ -26,7 +26,7 @@
 
         <receiver android:name="sg.com.ntu.cz4062.group9.wallpaper.receiver.MyReceiver" >
             <intent-filter>
-                <action android:name="sg.com.ntu.cz4062.group9.wallpaper.CONTACT_RECEIVER" >
+                <action android:name="sg.com.ntu.cz4062.group9.wallpaper.RECEIVER" >
                 </action>
             </intent-filter>
         </receiver>

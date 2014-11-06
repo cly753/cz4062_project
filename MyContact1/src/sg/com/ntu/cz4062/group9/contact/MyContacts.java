@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -18,15 +17,7 @@ public class MyContacts extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-
 		this.getActionBar().setTitle(TITLE);
-		
-		/*
-		 * pop up the soft keyboard when user is typing
-		 */
-		EditText temp = (EditText) this.findViewById(R.id.etIp);
-		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-		imm.showSoftInput(temp, InputMethodManager.SHOW_IMPLICIT);
 	}
 	
 	/*

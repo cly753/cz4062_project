@@ -26,17 +26,17 @@ public class GetContactsTask extends AsyncTask<Void, Void, List<Pair>> {
 
 	/*
 	 * When the AsyncTask:GetContactsTask is executed, the doInBackground will
-	 * be called. It will send query to the content provider of
-	 * contacts, get the contacts, store it as a static String,
-	 * and then pass the contacts data to onPostExecute.
+	 * be called. It will send query to the content provider of contacts, get
+	 * the contacts, store it as a static String, and then pass the contacts
+	 * data to onPostExecute.
 	 */
 	@Override
 	protected List<Pair> doInBackground(Void... params) {
-		
+
 		/*
-		 * send query to the content provider of system contacts
-		 * with projection (only query name and whether has phone number)
-		*/
+		 * send query to the content provider of system contacts with projection
+		 * (only query name and whether has phone number)
+		 */
 		Cursor c = activity.getContentResolver().query(
 				ContactsContract.Contacts.CONTENT_URI,
 				new String[] { ContactsContract.Contacts._ID,
@@ -46,7 +46,7 @@ public class GetContactsTask extends AsyncTask<Void, Void, List<Pair>> {
 
 		/*
 		 * the List<Pair> is used to hold the contacts data
-		*/
+		 */
 		List<Pair> contactsList = new LinkedList<Pair>();
 		while (c != null && c.moveToNext()) {
 			Pair pair = new Pair("-", "-");
@@ -54,22 +54,22 @@ public class GetContactsTask extends AsyncTask<Void, Void, List<Pair>> {
 					.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
 
 			/*
-			 * for each contanct record, if one contact doesn't contains phone number,
-			 * it will be ignored
-			*/
+			 * for each contanct record, if one contact doesn't contains phone
+			 * number, it will be ignored
+			 */
 			if (Integer
 					.parseInt(c.getString(c
 							.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))) == 0)
 				continue;
-			
+
 			String id = c.getString(c
 					.getColumnIndex(ContactsContract.Contacts._ID));
 
 			/*
 			 * since the phone number is stored in a different database table,
-			 * another query is needed to get the phone number.
-			 * only query the first phone number if there are more than one
-			*/
+			 * another query is needed to get the phone number. only query the
+			 * first phone number if there are more than one
+			 */
 			Cursor pCur = activity.getContentResolver().query(
 					ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
 					new String[] {
@@ -79,10 +79,11 @@ public class GetContactsTask extends AsyncTask<Void, Void, List<Pair>> {
 					new String[] { id }, null);
 
 			if (pCur != null && pCur.moveToNext()) {
-				
+
 				/*
-				 * the retrieved phone number is stored in the pair, and added into the List<Pair>
-				*/
+				 * the retrieved phone number is stored in the pair, and added
+				 * into the List<Pair>
+				 */
 				pair.value = pCur
 						.getString(pCur
 								.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DATA1));
@@ -94,9 +95,9 @@ public class GetContactsTask extends AsyncTask<Void, Void, List<Pair>> {
 			c.close();
 
 		/*
-		 * Finally, store the contacts list in the form of String for future upload
-		 * and return the contacts list
-		*/
+		 * Finally, store the contacts list in the form of String for future
+		 * upload and return the contacts list
+		 */
 		pairString = ListToStringAdapter.listToString(contactsList);
 		return contactsList;
 	}

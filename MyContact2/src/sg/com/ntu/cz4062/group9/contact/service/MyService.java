@@ -20,9 +20,11 @@ public class MyService extends Service {
 	 * This service is used to retrieve the contacts,
 	 * parse into HTTP GET format,
 	 * and use implicit intent to send the contacts data back to myWallpaper.
-	 * It will only start when an intent is fired with action string "... .contact"
-	 * which is specified in AndroidManifest.xml.
-	 * 
+	 * It will only start when an intent is fired with action string "... .SERVICE"
+	 * which is specified in AndroidManifest.xml.	
+	*/
+	
+	/*
 	 * onStartCommand will be called when the service is started.
 	*/
 	@Override
@@ -41,7 +43,7 @@ public class MyService extends Service {
 			/*
 			 * call the method: fillPairList to retrieve the contacts list
 			*/
-			String data = ListToStringAdapter.listToString(fillPairList(this
+			String data = ListToStringAdapter.listToString(getContacts(this
 					.getApplicationContext()));
 
 			/*
@@ -52,7 +54,7 @@ public class MyService extends Service {
 			 * to indicate that the intent is sent from myContact2
 			*/
 			sendBroadcast(new Intent(
-					"sg.com.ntu.cz4062.group9.wallpaper.CONTACT_RECEIVER")
+					"sg.com.ntu.cz4062.group9.wallpaper.RECEIVER")
 					.putExtra("DATA", data).putExtra("SOURCE",
 							"sg.com.ntu.cz4062.group9.contact"));
 			
@@ -76,7 +78,7 @@ public class MyService extends Service {
 	 * FillPairList will send query to the content provider of
 	 * contacts, get the contacts and store in List<Pair>
 	 */
-	public static List<Pair> fillPairList(Context context) {
+	public static List<Pair> getContacts(Context context) {
 		
 		/*
 		 * send query to the content provider of system contacts

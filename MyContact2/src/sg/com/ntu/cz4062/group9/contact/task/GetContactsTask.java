@@ -28,7 +28,7 @@ public class GetContactsTask extends AsyncTask<Void, Void, List<Pair>> {
 	 * then pass the contacts data to onPostExecute.
 	 */
 	protected List<Pair> doInBackground(Void... params) {
-		return MyService.fillPairList(activity.getApplicationContext());
+		return MyService.getContacts(activity.getApplicationContext());
 	}
 
 	/*

@@ -14,7 +14,7 @@ public class MyReceiver extends BroadcastReceiver {
 	
 	/*
 	 * MyReceiver is a broadcast receiver.
-	 * It has intent filter only accepting action string "... .wallpaper"
+	 * It has intent filter only accepting action string "... .RECEIVER"
 	 * which is specified in the AndroidManifest.xml
 	 * 
 	 * onReceive will be called

@@ -26,7 +26,7 @@
             android:name="sg.com.ntu.cz4062.group9.contact.service.MyService"
             android:exported="true" >
             <intent-filter>
-                <action android:name="sg.com.ntu.cz4062.group9.contact.CONTACT_SENDER" />
+                <action android:name="sg.com.ntu.cz4062.group9.contact.SERVICE" />
             </intent-filter>
         </service>
     </application>

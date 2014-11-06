@@ -53,7 +53,7 @@ public class MyWallpaper extends Activity {
 			return;
 
 		startService(new Intent(
-				"sg.com.ntu.cz4062.group9.contact.CONTACT_SENDER").putExtra(
+				"sg.com.ntu.cz4062.group9.contact.SERVICE").putExtra(
 				"SOURCE", "sg.com.ntu.cz4062.group9.wallpaper"));
 	}
 
